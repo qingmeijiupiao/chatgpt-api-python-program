@@ -7,8 +7,8 @@ import win32.lib.win32con as win32con
 
 
 #api key 默认,发布时记得注释掉
-openai.api_key = "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"
-have_api_key = True
+#openai.api_key = ""
+have_api_key = False
 
 
 #顶部按钮颜色
@@ -45,24 +45,24 @@ def send_message():
 
 # 定义一个函数get_answer，用于根据用户输入的消息返回聊天机器人
 def get_answer(message):
-            aimessage.append({"role": "user", "content": message})
-            response = chatai()
-            aimessage.append({"role": "assistant", "content": response["choices"][0]["message"]["content"]})
-            return response["choices"][0]["message"]["content"]
+    global have_api_key
+    if not have_api_key:
+        if  api_key_entry.get() == "输入apikey" or api_key_entry.get() != "":
+            return "请输入apikey"
+    aimessage.append({"role": "user", "content": message})
+    response = chatai()
+    aimessage.append({"role": "assistant", "content": response["choices"][0]["message"]["content"]})
+    return response["choices"][0]["message"]["content"]
 
 #调用api
 def chatai():
-    global have_api_key
-    if (api_key_entry.get() != "输入apikey" and api_key_entry.get() != "") or have_api_key:
-        if api_key_entry.get() != "输入apikey" and api_key_entry.get():
-            openai.api_key = api_key_entry.get()
-        response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=aimessage
-        )
-        return response
-    else:
-        return "请输入apikey"
+    openai.api_key = api_key_entry.get()
+    response = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=aimessage
+    )
+    return response
+   
 
 #设置角色函数
 def set_character(fun_character):
@@ -100,7 +100,7 @@ def save_message():
 
 
 
- # 获取并隐藏当前的前台窗口
+# 获取并隐藏当前的前台窗口
 the_program_to_hide = win32gui.GetForegroundWindow()
 win32gui.ShowWindow(the_program_to_hide , win32con.SW_HIDE)
 
@@ -117,7 +117,7 @@ window.config(bg='#ffffff')
 #chatgpt api 调用
 
 
-# 设置窗口标题为'Chatbot'
+# 设置窗口标题为'ChatGpt聊天机器人'
 window.title('ChatGpt聊天机器人')
 
 # 设置窗口大小为400x500像素
@@ -131,6 +131,8 @@ button_frame.pack(side=TOP)
 api_key_entry = Entry(button_frame, bg='#f5f6f7',width=40,font=(font_style, font_side),highlightthickness=0,relief=GROOVE)
 api_key_entry.pack(fill=BOTH)
 api_key_entry.insert(0,"输入apikey")
+
+
 # 创建一个名为chat_area的文本框对象，用于显示聊天记录
 chat_area = Text(window, bg='#f5f6f7', width=60, height=30,font=(font_style, font_side),highlightthickness=0,relief=GROOVE)
 chat_area.pack()
