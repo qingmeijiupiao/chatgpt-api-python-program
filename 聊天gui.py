@@ -47,7 +47,7 @@ def send_message():
 def get_answer(message):
     global have_api_key
     if not have_api_key:
-        if  api_key_entry.get() == "输入apikey" or api_key_entry.get() != "":
+        if  api_key_entry.get() == "输入apikey" or api_key_entry.get() == "":
             return "请输入apikey"
     aimessage.append({"role": "user", "content": message})
     response = chatai()
