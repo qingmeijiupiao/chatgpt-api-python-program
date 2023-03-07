@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ChatBot</class>
+ <widget class="QMainWindow" name="ChatBot">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>543</width>
+    <height>392</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>GPT-3.5对话程序</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../2.0/icons8-chatgpt_1.ico</normaloff>../2.0/icons8-chatgpt_1.ico</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget {
+background-color: #ffffff;
+}
+</string>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QFrame" name="main_frame">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>1</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QFrame {
+background-color: #ffffff;
+}
+</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QFrame" name="button_frame">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>2</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QFrame {
+background-color: #f0f0f0;
+border-radius: 14px;
+
+}
+</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <property name="spacing">
+           <number>11</number>
+          </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>19</number>
+          </property>
+          <item>
+           <widget class="QFrame" name="frame_2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>3</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-image: url(:/img/ChatGPT_logo.svg.png);</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <property name="lineWidth">
+             <number>5</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="chButton_1">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>1</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #1e6fff;
+    border-radius: 10px;
+	font:10pt &quot;Microsoft YaHei UI&quot;;
+	color: #ffffff;	
+}
+QPushButton:hover {
+	font:10pt &quot;Microsoft YaHei UI&quot;;
+    background-color: #5391ff;
+    border-radius: 10px;
+	color: #ffffff;	
+}
+QPushButton:pressed {
+	font:10pt &quot;Microsoft YaHei UI&quot;;
+    background-color: #1b65eb;
+    border-radius: 10px;
+	color: #ffffff;	
+}</string>
+            </property>
+            <property name="text">
+             <string>角色1</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="chButton_2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>1</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #1e6fff;
+    border-radius: 10px;
+	font:10pt &quot;Microsoft YaHei UI&quot;;
+	color: #ffffff;	
+}
+QPushButton:hover {
+	font:10pt &quot;Microsoft YaHei UI&quot;;
+    background-color: #5391ff;
+    border-radius: 10px;
+	color: #ffffff;	
+}
+QPushButton:pressed {
+	font:10pt &quot;Microsoft YaHei UI&quot;;
+    background-color: #1b65eb;
+    border-radius: 10px;
+	color: #ffffff;	
+}</string>
+            </property>
+            <property name="text">
+             <string>角色2</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="chButton_3">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>1</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #1e6fff;
+    border-radius: 10px;
+	font:10pt &quot;Microsoft YaHei UI&quot;;
+	color: #ffffff;	
+}
+QPushButton:hover {
+	font:10pt &quot;Microsoft YaHei UI&quot;;
+    background-color: #5391ff;
+    border-radius: 10px;
+	color: #ffffff;	
+}
+QPushButton:pressed {
+	font:10pt &quot;Microsoft YaHei UI&quot;;
+    background-color: #1b65eb;
+    border-radius: 10px;
+	color: #ffffff;	
+}</string>
+            </property>
+            <property name="text">
+             <string>角色3</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="chButton_4">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>1</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #1e6fff;
+    border-radius: 10px;
+	font:10pt &quot;Microsoft YaHei UI&quot;;
+	color: #ffffff;	
+}
+QPushButton:hover {
+	font:10pt &quot;Microsoft YaHei UI&quot;;
+    background-color: #5391ff;
+    border-radius: 10px;
+	color: #ffffff;	
+}
+QPushButton:pressed {
+	font:10pt &quot;Microsoft YaHei UI&quot;;
+    background-color: #1b65eb;
+    border-radius: 10px;
+	color: #ffffff;	
+}</string>
+            </property>
+            <property name="text">
+             <string>角色4</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="chButton_5">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>1</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #1e6fff;
+    border-radius: 10px;
+	font:10pt &quot;Microsoft YaHei UI&quot;;
+	color: #ffffff;	
+}
+QPushButton:hover {
+	font:10pt &quot;Microsoft YaHei UI&quot;;
+    background-color: #5391ff;
+    border-radius: 10px;
+	color: #ffffff;	
+}
+QPushButton:pressed {
+	font:10pt &quot;Microsoft YaHei UI&quot;;
+    background-color: #1b65eb;
+    border-radius: 10px;
+	color: #ffffff;	
+}</string>
+            </property>
+            <property name="text">
+             <string>角色5</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="chButton_6">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>1</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #1e6fff;
+    border-radius: 10px;
+	font:10pt &quot;Microsoft YaHei UI&quot;;
+	color: #ffffff;	
+}
+QPushButton:hover {
+	font:10pt &quot;Microsoft YaHei UI&quot;;
+    background-color: #5391ff;
+    border-radius: 10px;
+	color: #ffffff;	
+}
+QPushButton:pressed {
+	font:10pt &quot;Microsoft YaHei UI&quot;;
+    background-color: #1b65eb;
+    border-radius: 10px;
+	color: #ffffff;	
+}</string>
+            </property>
+            <property name="text">
+             <string>角色6</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="frame">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>2</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="savebutton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>2</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+	font:12pt &quot;Microsoft YaHei UI&quot;;
+    background-color: #1e6fff;
+    border-radius: 10px;
+	color: #ffffff;	
+}
+QPushButton:hover {
+	font:12pt &quot;Microsoft YaHei UI&quot;;
+    background-color: #5391ff;
+    border-radius: 10px;
+	color: #ffffff;	
+}
+QPushButton:pressed {
+	font:12pt &quot;Microsoft YaHei UI&quot;;
+    background-color: #1b65eb;
+    border-radius: 10px;
+	color: #ffffff;	
+}</string>
+            </property>
+            <property name="text">
+             <string>保存对话</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="right_frame">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>14</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QFrame {
+background-color: #ffffff;
+}
+</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QFrame" name="top_frame">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>1</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_3">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>API KEY:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="apikey_edit"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="text_frame">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>20</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_4">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QPlainTextEdit" name="plainTextEdit">
+               <property name="styleSheet">
+                <string notr="true">QPlainTextEdit { 
+font:12pt &quot;Microsoft YaHei UI&quot;;
+}</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="entry_frame">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>6</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_2">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QTextEdit" name="entey_Edit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>10</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QTextEdit { 
+font:12pt &quot;Microsoft YaHei UI&quot;;
+}</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="sendbutton">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>1</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+    background-color: #1e6fff;
+	font:10pt &quot;Microsoft YaHei UI&quot;;
+	color: #ffffff;	
+
+}
+QPushButton:hover {
+  background-color: #5391ff;
+}
+QPushButton:pressed {
+  background-color: #1b65eb;
+}</string>
+               </property>
+               <property name="text">
+                <string>发送</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../icon/icon.qrc"/>
+ </resources>
+ <connections/>
+</ui>
