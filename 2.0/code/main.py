@@ -73,10 +73,6 @@ def save_message():
         f.write(content)
         f.close
 
-
-
-
-
 #主窗口类
 class MainWindow(QMainWindow, Ui_ChatBot): # 继承自转换后的类
     def __init__(self):
@@ -96,7 +92,6 @@ class MainWindow(QMainWindow, Ui_ChatBot): # 继承自转换后的类
         self.plainTextEdit.setReadOnly(True)
         self.apikey_edit = self.findChild(QLineEdit, "apikey_edit")
 
-
         #  # 绑定按钮点击信号和槽函数  不注释掉会导致Qt的自动连接机制触发，函数可能会执行两次降低程序稳定性
         # self.chButton_1.released.connect(self.on_chButton_1_clicked)
         # self.chButton_2.released.connect(self.on_chButton_2_clicked)
@@ -106,13 +101,12 @@ class MainWindow(QMainWindow, Ui_ChatBot): # 继承自转换后的类
         # self.chButton_6.released.connect(self.on_chButton_6_clicked)
         # self.savebutton.released.connect(self.on_savebutton_clicked)
         # self.sendbutton.released.connect(self.on_sendbutton_clicked)
-        
+    
     # 定义槽函数
     @pyqtSlot()
     def on_chButton_1_clicked(self):
         set_character("女朋友")
         self.plainTextEdit.clear()
-    
     @pyqtSlot()
     def on_chButton_2_clicked(self):
         set_character("男朋友")
@@ -136,7 +130,6 @@ class MainWindow(QMainWindow, Ui_ChatBot): # 继承自转换后的类
     @pyqtSlot()
     def on_savebutton_clicked(self):
         save_message()
-    
     @pyqtSlot()
     def on_sendbutton_clicked(self):
         global key
@@ -154,12 +147,6 @@ class MainWindow(QMainWindow, Ui_ChatBot): # 继承自转换后的类
             answer = get_answer(text)
             self.plainTextEdit.appendPlainText(ch+":"+answer)
             
-
-
-
-    
-
-
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
