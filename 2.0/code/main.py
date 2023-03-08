@@ -3,6 +3,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from ui import Ui_ChatBot # 从ui文件中导入类
 import openai
+
 #默认角色
 character = "人"
 
@@ -12,6 +13,7 @@ aimessage.append({"role": "user", "content": "现在你要模仿"+character+"和
 
 #api key 默认,发布时记得注释掉
 key = ""
+
 
 #设置apikey函数
 def set_apikey(key):
@@ -36,6 +38,11 @@ def get_answer(message):
         return response["choices"][0]["message"]["content"]
     else:
         return "请输入正确的apikey"
+
+
+
+
+
 
 #设置角色函数
 def set_character(fun_character):
@@ -73,11 +80,43 @@ def save_message():
         f.write(content)
         f.close
 
+
+# 调用api的线程
+class MyThread(QThread):
+    # 定义一个信号，用于发送数据
+    my_signal = pyqtSignal(str)
+
+    def __init__(self,content):
+        super(MyThread, self).__init__()
+        self.content = content
+    # 这里写你的功能函数
+    def run(self):
+        #回答作为信号发送
+        self.my_signal.emit(get_answer(self.content))
+
+# 保存对话文件的线程
+class saveThread(QThread):
+    my_signal = pyqtSignal(str)
+    def __init__(self):
+        super(saveThread, self).__init__()
+    #保存对话文件
+    def run(self):
+        save_message()
+
+
 #主窗口类
 class MainWindow(QMainWindow, Ui_ChatBot): # 继承自转换后的类
     def __init__(self):
         super().__init__()
         self.setupUi(self) # 创建UI元素
+
+        # 创建线程实例
+        # 调用api的线程
+        self.thread = MyThread("")
+        # 保存文件的线程
+        self.savethread = saveThread()
+         # 连接信号和槽
+        self.thread.my_signal.connect(self.get_message)
          # 获取组件
         self.chButton_1 = self.findChild(QPushButton, "chButton_1")
         self.chButton_2 = self.findChild(QPushButton, "chButton_2")
@@ -102,6 +141,18 @@ class MainWindow(QMainWindow, Ui_ChatBot): # 继承自转换后的类
         # self.savebutton.released.connect(self.on_savebutton_clicked)
         # self.sendbutton.released.connect(self.on_sendbutton_clicked)
     
+
+
+
+
+    def get_message(self,text):
+        global character
+        if character =="人" :
+                ch = "Chat"
+        else:
+            ch = character
+        self.plainTextEdit.appendPlainText(ch+":"+text)
+
     # 定义槽函数
     @pyqtSlot()
     def on_chButton_1_clicked(self):
@@ -129,14 +180,13 @@ class MainWindow(QMainWindow, Ui_ChatBot): # 继承自转换后的类
         self.plainTextEdit.clear()
     @pyqtSlot()
     def on_savebutton_clicked(self):
-        save_message()
+        self.savethread.start()
     @pyqtSlot()
     def on_sendbutton_clicked(self):
         global key
         if self.apikey_edit.text() !="":
             key = self.apikey_edit.text()
-        if character =="人" :
-            ch = "Chat"
+        
         else:
             ch=character
         text = self.entey_Edit.toPlainText()
@@ -144,14 +194,13 @@ class MainWindow(QMainWindow, Ui_ChatBot): # 继承自转换后的类
             self.entey_Edit.clear()
             self.plainTextEdit.appendPlainText("我:"+text)
             self.repaint()
-            answer = get_answer(text)
-            self.plainTextEdit.appendPlainText(ch+":"+answer)
-            
+            self.thread.content = text
+            self.thread.start()#开始回复线程
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
     #设置窗口最小尺寸
-    window.setMinimumSize(640, 480)
+    window.setMinimumSize(800, 600)
     sys.exit(app.exec_())
