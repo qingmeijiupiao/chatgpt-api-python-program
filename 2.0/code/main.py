@@ -11,7 +11,7 @@ aimessage=[]
 aimessage.append({"role": "user", "content": "现在你要模仿"+character+"和我对话,就像一个真正的"+character+"一样,并且不能暴露你是一个AI或者程序,你要极力隐藏你是个AI或者说程序,下面我们开始正式对话"})
 
 #api key 默认,发布时记得注释掉
-key = "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"
+key = ""
 
 #设置apikey函数
 def set_apikey(key):
@@ -69,6 +69,10 @@ def save_message():
         f.close
 
 
+
+
+
+
 class MainWindow(QMainWindow, Ui_ChatBot): # 继承自转换后的类
     def __init__(self):
         super().__init__()
@@ -84,18 +88,19 @@ class MainWindow(QMainWindow, Ui_ChatBot): # 继承自转换后的类
         self.sendbutton = self.findChild(QPushButton, "sendbutton")
         self.entey_Edit = self.findChild(QTextEdit, "entey_Edit")
         self.plainTextEdit = self.findChild(QPlainTextEdit, "plainTextEdit")
+        self.plainTextEdit.setReadOnly(True)
         self.apikey_edit = self.findChild(QLineEdit, "apikey_edit")
 
 
          # 绑定按钮点击信号和槽函数
-        self.chButton_1.clicked.connect(self.on_chButton_1_clicked)
-        self.chButton_2.clicked.connect(self.on_chButton_2_clicked)
-        self.chButton_3.clicked.connect(self.on_chButton_3_clicked)
-        self.chButton_4.clicked.connect(self.on_chButton_4_clicked)
-        self.chButton_5.clicked.connect(self.on_chButton_5_clicked)
-        self.chButton_6.clicked.connect(self.on_chButton_6_clicked)
-        self.savebutton.clicked.connect(self.on_savebutton_clicked)
-        self.sendbutton.clicked.connect(self.on_sendbutton_clicked)
+        self.chButton_1.released.connect(self.on_chButton_1_clicked)
+        self.chButton_2.released.connect(self.on_chButton_2_clicked)
+        self.chButton_3.released.connect(self.on_chButton_3_clicked)
+        self.chButton_4.released.connect(self.on_chButton_4_clicked)
+        self.chButton_5.released.connect(self.on_chButton_5_clicked)
+        self.chButton_6.released.connect(self.on_chButton_6_clicked)
+        self.savebutton.released.connect(self.on_savebutton_clicked)
+        self.sendbutton.released.connect(self.on_sendbutton_clicked)
         
     # 定义槽函数
     @pyqtSlot()
@@ -129,6 +134,9 @@ class MainWindow(QMainWindow, Ui_ChatBot): # 继承自转换后的类
     
     @pyqtSlot()
     def on_sendbutton_clicked(self):
+        global key
+        if self.apikey_edit.text() !="":
+            key = self.apikey_edit.text()
         if character =="人" :
             ch = "Chat"
         else:
@@ -140,11 +148,11 @@ class MainWindow(QMainWindow, Ui_ChatBot): # 继承自转换后的类
             self.repaint()
             answer = get_answer(text)
             self.plainTextEdit.appendPlainText(ch+":"+answer)
+            
 
 
 
-
-
+    
 
 
 if __name__ == "__main__":
@@ -152,4 +160,5 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
+    window.setMinimumSize(640, 480)
     sys.exit(app.exec_())
