@@ -92,15 +92,15 @@ class MainWindow(QMainWindow, Ui_ChatBot): # 继承自转换后的类
         self.apikey_edit = self.findChild(QLineEdit, "apikey_edit")
 
 
-         # 绑定按钮点击信号和槽函数
-        self.chButton_1.released.connect(self.on_chButton_1_clicked)
-        self.chButton_2.released.connect(self.on_chButton_2_clicked)
-        self.chButton_3.released.connect(self.on_chButton_3_clicked)
-        self.chButton_4.released.connect(self.on_chButton_4_clicked)
-        self.chButton_5.released.connect(self.on_chButton_5_clicked)
-        self.chButton_6.released.connect(self.on_chButton_6_clicked)
-        self.savebutton.released.connect(self.on_savebutton_clicked)
-        self.sendbutton.released.connect(self.on_sendbutton_clicked)
+        #  # 绑定按钮点击信号和槽函数  不注释掉会导致Qt的自动连接机制触发，函数可能会执行两次降低程序稳定性
+        # self.chButton_1.released.connect(self.on_chButton_1_clicked)
+        # self.chButton_2.released.connect(self.on_chButton_2_clicked)
+        # self.chButton_3.released.connect(self.on_chButton_3_clicked)
+        # self.chButton_4.released.connect(self.on_chButton_4_clicked)
+        # self.chButton_5.released.connect(self.on_chButton_5_clicked)
+        # self.chButton_6.released.connect(self.on_chButton_6_clicked)
+        # self.savebutton.released.connect(self.on_savebutton_clicked)
+        # self.sendbutton.released.connect(self.on_sendbutton_clicked)
         
     # 定义槽函数
     @pyqtSlot()
