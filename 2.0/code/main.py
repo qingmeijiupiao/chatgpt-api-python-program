@@ -24,6 +24,7 @@ set_apikey(key)
 # 定义一个函数get_answer，输入消息给api返回回答
 def get_answer(message):
     global key
+    #判断是否输入了apikey
     if set_apikey(key):
         aimessage.append({"role": "user", "content": message})
         #调用api返回回答
@@ -47,9 +48,11 @@ def set_character(fun_character):
 def save_message():
         global aimessage
         global character
+        #判断是否是有效对话
         if  aimessage == [{"role": "user", "content": "现在你要模仿"+character+"和我对话,就像一个真正的"+character+"一样,并且不能暴露你是一个AI或者程序,你要极力隐藏你是个AI或者说程序,下面我们开始正式对话"}] :
             return 0
         message = aimessage
+        #在文件头添加角色说明
         content="与"+character+"对话\n\n\n"
         message.pop(0)   #删除第0行对话
         for sentence in message:   #添加角色
@@ -57,13 +60,15 @@ def save_message():
                 content+="chat:"+sentence["content"]+"\n\n"
             else:
                 content+="I:"+sentence["content"]+"\n\n"
-        message.append({"role": "system", "content": "给上面的对话取个简短的标题,不要加引号"})   #获取合适的文件名
+        #获取合适的文件名
+        message.append({"role": "system", "content": "给上面的对话取个简短的标题,不要加引号"})  
         response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=message
         )
         filename =  response["choices"][0]["message"]["content"]+".txt"
-        f = open(filename, 'x',encoding="utf-8")     #保存文件到当前目录
+        #保存文件到当前目录
+        f = open(filename, 'x',encoding="utf-8")     
         print(content)
         f.write(content)
         f.close
@@ -72,7 +77,7 @@ def save_message():
 
 
 
-
+#主窗口类
 class MainWindow(QMainWindow, Ui_ChatBot): # 继承自转换后的类
     def __init__(self):
         super().__init__()
@@ -160,5 +165,6 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
+    #设置窗口最小尺寸
     window.setMinimumSize(640, 480)
     sys.exit(app.exec_())
