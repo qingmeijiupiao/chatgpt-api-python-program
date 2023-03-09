@@ -54,7 +54,10 @@ def set_character(character_number):
 
 #保存文件函数
 def save_message():
+        global key
         global aimessage
+        if len(key) == 51:
+            return 0
         content=""
         #判断是否是有效对话
         if  len(aimessage) ==len(aimessage[0]):
