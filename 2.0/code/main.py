@@ -56,7 +56,7 @@ def set_character(character_number):
 def save_message():
         global key
         global aimessage
-        if len(key) == 51:
+        if len(key) != 51:
             return 0
         content=""
         #判断是否是有效对话
