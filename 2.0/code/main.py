@@ -4,13 +4,20 @@ from PyQt5.QtGui import *
 from ui import Ui_ChatBot # 从ui文件中导入类
 import openai
 
+import json
+
+with open("promot_setting.json",encoding="utf-8") as promot_setting:
+# 读取json数据
+    promot = json.load(promot_setting)
+
 #默认角色
 character = "人"
 
 #创建消息数组
 aimessage=[]
-aimessage.append({"role": "user", "content": "现在你要模仿"+character+"和我对话,就像一个真正的"+character+"一样,并且不能暴露你是一个AI或者程序,你要极力隐藏你是个AI或者说程序,下面我们开始正式对话"})
-
+aimessage.append(
+    {"role": "user", "content":promot[0]}
+    )
 #api key 默认,发布时记得注释掉
 key = ""
 
@@ -39,28 +46,20 @@ def get_answer(message):
     else:
         return "请输入正确的apikey"
 
-
-
-
-
-
 #设置角色函数
-def set_character(fun_character):
-        global character
-        character=fun_character
+def set_character(character_number):
+        global promot
         aimessage.clear()
-        aimessage.append({"role": "user", "content": "现在你要模仿"+character+"和我对话,就像一个真正的"+character+"一样,并且不能暴露你是一个AI或者程序,你要极力隐藏你是个AI或者说程序,下面我们开始正式对话"})
+        aimessage.append({"role": "user", "content": promot[character_number]})
 
 #保存文件函数
 def save_message():
         global aimessage
-        global character
+        content=""
         #判断是否是有效对话
-        if  aimessage == [{"role": "user", "content": "现在你要模仿"+character+"和我对话,就像一个真正的"+character+"一样,并且不能暴露你是一个AI或者程序,你要极力隐藏你是个AI或者说程序,下面我们开始正式对话"}] :
+        if  len(aimessage) ==len(aimessage[0]):
             return 0
         message = aimessage
-        #在文件头添加角色说明
-        content="与"+character+"对话\n\n\n"
         message.pop(0)   #删除第0行对话
         for sentence in message:   #添加角色
             if sentence["role"] == "assistant":
@@ -140,11 +139,7 @@ class MainWindow(QMainWindow, Ui_ChatBot): # 继承自转换后的类
         # self.chButton_6.released.connect(self.on_chButton_6_clicked)
         # self.savebutton.released.connect(self.on_savebutton_clicked)
         # self.sendbutton.released.connect(self.on_sendbutton_clicked)
-    
-
-
-
-
+        
     def get_message(self,text):
         global character
         if character =="人" :
@@ -156,27 +151,27 @@ class MainWindow(QMainWindow, Ui_ChatBot): # 继承自转换后的类
     # 定义槽函数
     @pyqtSlot()
     def on_chButton_1_clicked(self):
-        set_character("女朋友")
+        set_character(1)
         self.plainTextEdit.clear()
     @pyqtSlot()
     def on_chButton_2_clicked(self):
-        set_character("男朋友")
+        set_character(2)
         self.plainTextEdit.clear()
     @pyqtSlot()
     def on_chButton_3_clicked(self):
-        set_character("程序员")
+        set_character(3)
         self.plainTextEdit.clear()
     @pyqtSlot()
     def on_chButton_4_clicked(self):
-        set_character("专业助理")
+        set_character(4)
         self.plainTextEdit.clear()
     @pyqtSlot()
     def on_chButton_5_clicked(self):
-        set_character("猫娘")
+        set_character(5)
         self.plainTextEdit.clear()
     @pyqtSlot()
     def on_chButton_6_clicked(self):
-        set_character("老师")
+        set_character(6)
         self.plainTextEdit.clear()
     @pyqtSlot()
     def on_savebutton_clicked(self):
@@ -186,9 +181,6 @@ class MainWindow(QMainWindow, Ui_ChatBot): # 继承自转换后的类
         global key
         if self.apikey_edit.text() !="":
             key = self.apikey_edit.text()
-        
-        else:
-            ch=character
         text = self.entey_Edit.toPlainText()
         if text != "" :
             self.entey_Edit.clear()
